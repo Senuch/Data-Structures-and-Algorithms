@@ -90,6 +90,23 @@ int Height(struct Tree_Node *p)
     return -1;
 }
 
+// Time Complexity O(n)
+// Space Complexity O(n) Because of memory stack
+int LeafCount(struct Tree_Node *p)
+{
+    if(p)
+    {
+        int x=LeafCount((*p).lchild);
+        int y=LeafCount((*p).rchild);
+
+        if(!(*p).lchild && !(*p).rchild)
+            return x+y+1;
+        else
+            return x+y;
+    }
+    return 0;
+}
+
 int main()
 {
     CreateTree();
@@ -101,6 +118,8 @@ int main()
     printf("Nodes count %d\n",CountNodes(root));
 
     printf("Height %d\n",Height(root));
+
+    printf("Leaf Count %d\n",LeafCount(root));
 
     return 0;
 }
