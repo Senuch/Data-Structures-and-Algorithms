@@ -42,7 +42,8 @@ class Heap:
             right_child_index = (index * 2) + 2
 
             if left_child_index < len(self.input_list) and right_child_index < len(self.input_list):
-                selected_index = left_child_index if self.input_list[left_child_index] > self.input_list[right_child_index] else right_child_index
+                selected_index = left_child_index if self.input_list[left_child_index] > self.input_list[
+                    right_child_index] else right_child_index
             elif left_child_index < len(self.input_list):
                 selected_index = left_child_index
             elif right_child_index < len(self.input_list):
@@ -61,7 +62,7 @@ class Heap:
     # Time Complexity => O(log n)
     def push(self, value):
         self.input_list.append(value)
-        self.__heapify_up__(len(self.input_list)-1,value)
+        self.__heapify_up__(len(self.input_list) - 1, value)
 
     # Time Complexity => O(log n)
     def pop(self):
@@ -74,7 +75,7 @@ class Heap:
         self.input_list.pop()
 
         if len(self.input_list) > 0:
-            self.__heapify_down__(0,self.input_list[0])
+            self.__heapify_down__(0, self.input_list[0])
 
         return top_element
 
@@ -86,8 +87,21 @@ class Heap:
         return len(self.input_list)
 
 
+# Time Complexity => O(nlogk)
+# Space Complexity => O(1)
+def find_k_minimum(k, input_list):
+    heap = Heap([])
+
+    for value in input_list:
+        if heap.size() <= k:
+            heap.push(value)
+            if heap.size() > k:
+                heap.pop()
+    return heap.pop()
+
+
 if __name__ == "__main__":
     input_list = [5, 20, -1, 30, 50, 70, 88, 92]
 
-    heap = Heap(input_list)
-
+    k_min = find_k_minimum(5, input_list)
+    print k_min
